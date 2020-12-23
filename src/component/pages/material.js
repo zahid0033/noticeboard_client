@@ -2,16 +2,30 @@ import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import {Image} from 'cloudinary-react';
 import axios from 'axios'
+import {Button} from 'react-bootstrap'
+import UploadModal from "./uploadModal";
 
 class Material extends Component {
 
     state = {
-        image: null,
-        material:[]
+        material:[],
+        showModal: false
     }
 
     componentDidMount() {
         this.fetchMaterial()
+    }
+
+    showModal = () => {
+        this.setState({
+            showModal: true
+        })
+    }
+
+    closeModal = () => {
+        this.setState({
+            showModal: false
+        })
     }
 
     fetchMaterial = async () => {
@@ -38,48 +52,17 @@ class Material extends Component {
         })
     }
 
-    uploadImage = async () => {
-
-        const formdata = new FormData();
-        formdata.set("upload_preset","d26wpbx3")
-        formdata.append("file",this.state.image)
-
-        // await axios.post("https://api.cloudinary.com/v1_1/zahid0033/upload",formdata)
-        //     .then(res => {
-        //         console.log(res.data)
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
-
-        await axios.post(`/agentAction/materialPost`,formdata,{
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-
-    }
 
     render() {
         return(
             <div className="container">
                 <div className="row mt-5">
                     <div className="col-md-12">
-                        <input
-                            type="file"
-                            onChange={event => {
-                                this.setState({
-                                    image: event.target.files[0]
-                                })
-                            }}
-                        />
-                        <input type="submit" value="submit" onClick={this.uploadImage} className="btn btn-primary"/>
+                        <Button variant="primary" onClick={this.showModal}>
+                            Add New Materials
+                        </Button>
+                        <UploadModal show={this.state.showModal} showModal={this.showModal} closeModal={this.closeModal}  />
+
                     </div>
                 </div>
                 <div className="row mt-5">
