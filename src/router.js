@@ -1,35 +1,28 @@
-import React,{Component} from 'react'
-import {Route} from "react-router-dom";
-import Dashboard from "./component/dashboard";
-import Login from "./component/login/login";
-import Home from "./component/agent/home";
-import AgentRoute from "./component/ProtectedRoute/agentRoute";
-import AdminRoute from "./component/ProtectedRoute/adminRoute";
-import Topbar from "./component/template/topbar";
-import GraniteList from "./component/graniteList/graniteList";
-import LoginRoute from "./component/ProtectedRoute/loginRoute";
-import Admin from "./component/admin/admin";
-import Material from "./component/pages/material";
+import React from 'react'
+import { Route } from "react-router-dom";
+import NavBar from './components/Layouts/NavBar';
+import DashBoard from './pages/DashBoard';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import AdminRoute from './ProtectedRoutes/AdminRoute';
+import Material from './pages/Material'
+import Noticeboard from './pages/Noticeboard'
 import Program from "./component/pages/program";
 import ProgramEdit from "./component/pages/programEdit";
 
-class Router extends Component {
-    render() {
-        return(
-            <div>
-                <Topbar/>
-                <div className="mainBody">
-                    <Route exact path="/" component={Dashboard}/>
-                    <LoginRoute exact path="/login" component={Login}/>
-                    <Route exact path="/granite/list" component={GraniteList}/>
-                    <Route exact path="/material" component={Material}/>
-                    <Route exact path="/program" component={Program}/>
-                    <Route exact path="/program/edit/:programId" component={ProgramEdit}/>
-                    <AgentRoute exact path="/agent" component={Home}/>
-                    <AdminRoute exact path="/admin" component={Admin}/>
-                </div>
-            </div>
-        )
-    }
+function RouteBody() {
+    return (
+        <div className="mainBody">
+            <NavBar />
+            <AdminRoute exact path="/" component={DashBoard} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <AdminRoute path="/materials" component={Material} />
+            <AdminRoute path="/noticeboard" component={Noticeboard} />
+            <Route exact path="/program" component={Program} />
+            <Route exact path="/program/edit/:programId" component={ProgramEdit} />
+        </div>
+    )
 }
-export default Router
+
+export default RouteBody;
