@@ -10,6 +10,8 @@ import GraniteList from "./component/graniteList/graniteList";
 import LoginRoute from "./component/ProtectedRoute/loginRoute";
 import Admin from "./component/admin/admin";
 import Material from "./component/pages/material";
+import Program from "./component/pages/program";
+import ProgramEdit from "./component/pages/programEdit";
 
 class Router extends Component {
     render() {
@@ -21,6 +23,8 @@ class Router extends Component {
                     <LoginRoute exact path="/login" component={Login}/>
                     <Route exact path="/granite/list" component={GraniteList}/>
                     <Route exact path="/material" component={Material}/>
+                    <Route exact path="/program" component={Program}/>
+                    <Route exact path="/program/edit/:programId" component={ProgramEdit}/>
                     <AgentRoute exact path="/agent" component={Home}/>
                     <AdminRoute exact path="/admin" component={Admin}/>
                 </div>

@@ -33,7 +33,7 @@ class Topbar extends Component {
                                         (
                                             <>
                                                 <Nav.Link as={Link} to="/agent">Devices |</Nav.Link>
-                                                <Nav.Link as={Link} to="/agent">Manage |</Nav.Link>
+                                                <Nav.Link as={Link} to="/program">Program |</Nav.Link>
                                                 <Nav.Link as={Link} to="/material">Materials |</Nav.Link>
                                                 <Nav.Link onClick={() => this.logout()}>Logout</Nav.Link>
 

@@ -1,22 +1,20 @@
 import React,{Component} from "react";
 import {connect} from "react-redux";
-import {Modal,Button} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import axios from "axios";
 
 class UploadModal extends Component {
     state = {
-        image: null,
-        material:[],
-        showModal: false
+        image: null
     }
 
     uploadImage = async () => {
 
-        const formdata = new FormData();
-        formdata.set("upload_preset","d26wpbx3")
-        formdata.append("file",this.state.image)
+        const formData = new FormData();
+        formData.set("upload_preset","d26wpbx3")
+        formData.append("file",this.state.image)
 
-        // await axios.post("https://api.cloudinary.com/v1_1/zahid0033/upload",formdata)
+        // await axios.post("https://api.cloudinary.com/v1_1/zahid0033/upload",formData)
         //     .then(res => {
         //         console.log(res.data)
         //     })
@@ -24,7 +22,7 @@ class UploadModal extends Component {
         //         console.log(err)
         //     })
 
-        await axios.post(`/agentAction/materialPost`,formdata,{
+        await axios.post(`/agentAction/materialPost`,JSON.stringify(formData),{
             headers: {
                 "Content-Type": "multipart/form-data"
             }
