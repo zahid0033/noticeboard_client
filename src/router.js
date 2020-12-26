@@ -7,6 +7,8 @@ import Register from './pages/Register';
 import AdminRoute from './ProtectedRoutes/AdminRoute';
 import Material from './pages/Material'
 import Noticeboard from './pages/Noticeboard'
+import Program from "./component/pages/program";
+import ProgramEdit from "./component/pages/programEdit";
 
 function RouteBody() {
     return (
@@ -17,7 +19,10 @@ function RouteBody() {
             <Route path="/register" component={Register} />
             <AdminRoute path="/materials" component={Material} />
             <AdminRoute path="/noticeboard" component={Noticeboard} />
+            <Route exact path="/program" component={Program} />
+            <Route exact path="/program/edit/:programId" component={ProgramEdit} />
         </div>
     )
 }
-export default RouteBody
+
+export default RouteBody;
