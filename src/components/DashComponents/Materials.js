@@ -29,6 +29,7 @@ export default function Materials({ setAddMaterial }) {
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Name</th>
                         <th>Material</th>
                         <th>Type</th>
                     </tr>
@@ -37,6 +38,7 @@ export default function Materials({ setAddMaterial }) {
                     {materials.map((material, id) => (
                         <tr key={id}>
                             <td>{id + 1}</td>
+                            <td>{material.name}</td>
                             <td>
                                 {material.materialtype === "Image" ?
                                     <Image src={material.material} style={{ maxHeight: "40px" }} rounded /> : <p style={{ maxHeight: "40px", overflow: "hidden" }}>{material.material}</p>

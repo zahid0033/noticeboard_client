@@ -65,6 +65,12 @@ export default function Material() {
                                 })} />
                             </Form.Group>
                             <Form.Group>
+                                <Form.Label>Material name</Form.Label>
+                                <Form.Control name="name" ref={register({
+                                    required: "You must give a material name",
+                                })} />
+                            </Form.Group>
+                            <Form.Group>
                                 <Form.Label>Select material type</Form.Label>
                                 <Form.Control as="select" name="materialtype" ref={register({
                                     required: "You must select a material type",

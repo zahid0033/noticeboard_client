@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Container, Form, Row, Col, Alert, Button } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { Link, useHistory } from 'react-router-dom'
@@ -33,11 +33,11 @@ export default function Login() {
         }
     }
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            history.push('/')
-        }
-    }, [isAuthenticated, history])
+    // useEffect(() => {
+    //     if (isAuthenticated) {
+    //         history.push('/')
+    //     }
+    // }, [isAuthenticated])
 
     return (
         <>
