@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Container, Row, Col, Form, Spinner, Button, Card, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, Form, Spinner, Button, Badge, ListGroup } from 'react-bootstrap'
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
@@ -154,7 +154,7 @@ export default function EditNoticeBoard({ match }) {
                     <h1>Selected Notices</h1>
                     <ListGroup>
                         {noticeboard?.selectednotices?.map((selectednotice, id) => (
-                            <ListGroup.Item key={id} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}><p>{selectednotice.name}</p><img style={{ height: "30px" }} src={selectednotice?.material.materialtype === "Image" ? selectednotice?.material.material : null} thumbnail /></ListGroup.Item>
+                            <ListGroup.Item key={id}><Badge variant="secondary">{id + 1}</Badge> {selectednotice.name}</ListGroup.Item>
                         ))}
                     </ListGroup>
                 </Col>
