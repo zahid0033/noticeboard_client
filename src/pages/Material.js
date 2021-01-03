@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Row, Col, Button } from 'react-bootstrap';
+import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import Materials from '../components/DashComponents/Materials';
 import { useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ const { REACT_APP_NOT_AXIOS_BASE_URL } = process.env;
 export default function Material() {
     const [addMaterial, setAddMaterial] = useState(false)
     const [file, setFile] = useState()
+    const [loading, setLoading] = useState()
     const { user } = useSelector(state => state.auth)
     const { handleSubmit, register, watch } = useForm({
         defaultValues: {
@@ -19,6 +20,7 @@ export default function Material() {
     })
     const materialtype = watch('materialtype')
     const addNewMaterial = async (values) => {
+        setLoading(true)
         if (materialtype === "Image" || materialtype === "Video") {
             upload(file, values)
         } else {
@@ -26,9 +28,11 @@ export default function Material() {
                 const { data } = await axios.post(`${REACT_APP_NOT_AXIOS_BASE_URL}/admin/addmaterial`, values)
                 console.log(data.message)
                 if (data.success) {
+                    setLoading(false)
                     setAddMaterial(false)
                 }
             } catch (error) {
+                setLoading(false)
                 console.log(error.message)
             }
         }
@@ -36,6 +40,7 @@ export default function Material() {
     const upload = async (uploadfile, values) => {
         if (!file) {
             alert("Select a file to upload first")
+            setLoading(false)
             return
         }
         try {
@@ -45,19 +50,24 @@ export default function Material() {
             const { data } = await axios.post(`${REACT_APP_NOT_AXIOS_BASE_URL}/admin/upload`, uploaddata)
             console.log(data.message)
             if (data.success) {
+                setLoading(false)
                 setAddMaterial(false)
+            } else {
+                setLoading(false)
             }
         } catch (error) {
+            setLoading(false)
             console.log(error.message)
         }
 
     }
     return (
         <Container>
-            <Row className="justify-content-md-center">
+            <Row lg={1} md={1} sm={1} xl={1} xs={1}>
                 {addMaterial ?
-                    <Col lg="auto" md="auto">
-                        <Form style={{ marginTop: "40px" }} onSubmit={handleSubmit(addNewMaterial)}>
+                    <Col style={{ marginTop: "20px" }}>
+                        <Form onSubmit={handleSubmit(addNewMaterial)}>
+                            <h1>Add a material</h1>
                             <Form.Group style={{ display: 'none' }}>
                                 <Form.Label>adminid</Form.Label>
                                 <Form.Control name="adminid" defaultValue={user.id} ref={register({
@@ -99,7 +109,7 @@ export default function Material() {
                                 </Form.Group>
                             }
                             <Button type="button" variant="secondary" onClick={() => setAddMaterial(up => !up)}>Cancel</Button>
-                            <Button type="submit" variant="primary">Upload</Button>
+                            {loading ? <Spinner animation="border" /> : <Button type="submit" variant="primary">Upload</Button>}
                         </Form>
                     </Col>
                     :

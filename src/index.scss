@@ -1,0 +1,50 @@
+/* @import "~bootstrap/scss/bootstrap"; */
+$indigo-dye: #274060ff;
+$bdazzled-blue: #335c81ff;
+$french-sky-blue: #65afffff;
+$space-cadet: #1b2845ff;
+$blue-gray: #5899e2ff;
+
+body {
+  height: 100vh;
+  background: $french-sky-blue !important;
+}
+
+nav {
+  background: $space-cadet !important;
+  color: white !important;
+  a {
+    color: white !important;
+  }
+}
+
+a {
+  color: $bdazzled-blue !important;
+}
+
+button {
+  background: $indigo-dye !important;
+  color: white !important;
+}
+
+.table {
+  thead {
+    th,
+    td {
+      border-color: $indigo-dye !important;
+    }
+  }
+  td {
+    border-color: $indigo-dye !important;
+  }
+}
+
+.buttonoff {
+  background: red !important;
+  color: white !important;
+}
+
+.buttonon {
+  background: rgb(20, 218, 96) !important;
+  color: white !important;
+}

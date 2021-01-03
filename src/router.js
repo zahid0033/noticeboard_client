@@ -9,6 +9,7 @@ import Material from './pages/Material'
 import Noticeboard from './pages/Noticeboard'
 import Program from "./component/pages/program";
 import ProgramEdit from "./component/pages/programEdit";
+import EditNoticeBoard from './pages/EditNoticeBoard';
 
 function RouteBody() {
     return (
@@ -18,7 +19,8 @@ function RouteBody() {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <AdminRoute path="/materials" component={Material} />
-            <AdminRoute path="/noticeboard" component={Noticeboard} />
+            <AdminRoute path="/noticeboards" component={Noticeboard} />
+            <AdminRoute path="/noticeboard/:id" component={EditNoticeBoard} />
             <Route exact path="/program" component={Program} />
             <Route exact path="/program/edit/:programId" component={ProgramEdit} />
         </div>

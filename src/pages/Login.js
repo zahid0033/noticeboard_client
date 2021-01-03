@@ -1,5 +1,5 @@
-import React from 'react'
-import { Container, Form, Row, Col, Alert, Button } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Container, Form, Row, Col, Alert, Button, Spinner } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios';
@@ -12,10 +12,12 @@ const { REACT_APP_NOT_AXIOS_BASE_URL } = process.env;
 
 export default function Login() {
     const { errors, register, handleSubmit } = useForm();
+    const [loading, setLoading] = useState(false)
     const history = useHistory()
     const dispatch = useDispatch();
     const { isAuthenticated } = useSelector(state => state.auth)
     const loginAdmin = async (values) => {
+        setLoading(true)
         try {
             const { data } = await axios.post(`${REACT_APP_NOT_AXIOS_BASE_URL}/admin/login`, values)
             if (data.success) {
@@ -23,11 +25,14 @@ export default function Login() {
                 localStorage.setItem("jwtToken", data.token);
                 setAuthToken(data.token);
                 dispatch(setCurrentUser(decoded));
+                setLoading(false)
                 history.push('/')
             } else {
+                setLoading(false)
                 console.log(data.message)
             }
         } catch (error) {
+            setLoading(false)
             console.log(error.messaage)
 
         }
@@ -61,12 +66,16 @@ export default function Login() {
                                     })} placeholder="পাসওয়ার্ড ইনপুট করুন" />
                                     {errors?.password?.type === "required" && <div className="invalid-feedback">{errors.password.message}</div>}
                                 </Form.Group>
-                                <Button className="btn btn-primary btn-lg" type="submit">লগইন</Button>
+                                {loading ? (
+                                    <Spinner animation="border" />
+                                ) : (
+                                        <Button className="btn btn-primary btn-lg" type="submit">লগইন</Button>
+                                    )}
                                 <p style={{ marginTop: "20px" }}><Alert.Link as={Link} to="/register">নতুন একাউন্টের জন্য রেজিস্টার করুন</Alert.Link></p>
                             </Form>
                         </Col>
                     </Row>
-                </Container>
+                </Container >
             }
         </>
     )

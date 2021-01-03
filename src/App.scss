@@ -1,0 +1,20 @@
+$indigo-dye: #274060ff;
+$bdazzled-blue: #335c81ff;
+$french-sky-blue: #65afffff;
+$space-cadet: #1b2845ff;
+$blue-gray: #5899e2ff;
+
+button.navbar-toggler {
+  background: $blue-gray !important;
+}
+
+.noticeboardcard {
+  .card-header {
+    background-color: $indigo-dye;
+    color: honeydew;
+    button {
+      background-color: $blue-gray !important;
+      color: black !important;
+    }
+  }
+}

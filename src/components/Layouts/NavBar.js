@@ -7,7 +7,7 @@ export default function NavBar() {
     const dispatch = useDispatch()
     const { isAuthenticated } = useSelector(state => state.auth)
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar expand="lg">
             <Navbar.Brand as={Link} to="/">NoticeBee</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -15,7 +15,7 @@ export default function NavBar() {
                     {isAuthenticated &&
                         (
                             <>
-                                <Nav.Link as={Link} to="/noticeboard">Notices</Nav.Link>
+                                <Nav.Link as={Link} to="/noticeboards">Notices</Nav.Link>
                                 <Nav.Link as={Link} to="/materials">Materials</Nav.Link>
                                 <Nav.Link as={Button} onClick={() => dispatch(logoutUser())}>Logout</Nav.Link>
                             </>

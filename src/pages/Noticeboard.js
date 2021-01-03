@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Button, Container, Row, Col, Form } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import { useSelector } from 'react-redux';
+import Notices from '../components/DashComponents/Notices';
 const { REACT_APP_NOT_AXIOS_BASE_URL } = process.env;
 
 export default function Noticeboard() {
@@ -10,9 +12,10 @@ export default function Noticeboard() {
     const [materialQuery, setMaterialQuery] = useState()
     const [materials, setMaterials] = useState()
     const [queryMaterials, setQueryMaterials] = useState()
+    const { user } = useSelector(state => state.auth)
     const addNotice = async values => {
         try {
-            const { data } = await axios.post(`${REACT_APP_NOT_AXIOS_BASE_URL}/admin/addnotice`, values)
+            const { data } = await axios.post(`${REACT_APP_NOT_AXIOS_BASE_URL}/admin/addnotice/${user.organization}`, values)
             if (data.success) {
                 setAddNewNotice(!data.success)
             }
@@ -47,15 +50,16 @@ export default function Noticeboard() {
 
     return (
         <Container>
-            <Row className="justify-content-md-center">
+            <Row lg={1} md={1} sm={1} xl={1} xs={1}>
                 {!addNewNotice &&
-                    <Col>
+                    <Col style={{ marginTop: "20px" }}>
                         <Button onClick={() => setAddNewNotice(nn => !nn)}>Add Notice</Button>
                     </Col>
                 }
-                {addNewNotice &&
-                    <Col>
-                        <Form style={{ marginTop: "40px" }} onSubmit={handleSubmit(addNotice)}>
+                {addNewNotice ?
+                    <Col style={{ marginTop: "20px" }}>
+                        <Form onSubmit={handleSubmit(addNotice)}>
+                            <h1>Add a new notice</h1>
                             <Form.Group>
                                 <Form.Label>Notice Name</Form.Label>
                                 <Form.Control name="name" ref={register({
@@ -86,7 +90,7 @@ export default function Noticeboard() {
                             <Button type="button" variant="secondary" onClick={() => setAddNewNotice(nn => !nn)}>Cancel</Button>
                             <Button type="submit" variant="primary">Add Notice</Button>
                         </Form>
-                    </Col>
+                    </Col> : <Notices />
                 }
             </Row>
         </Container>
