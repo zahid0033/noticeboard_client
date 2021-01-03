@@ -73,7 +73,7 @@ export default function Noticeboard() {
                                 })}>
                                     <option>Text</option>
                                     <option>Image</option>
-                                    <option>Video</option>
+                                    {/* <option>Video</option> */}
                                 </Form.Control>
                             </Form.Group>
                             <Form.Group>

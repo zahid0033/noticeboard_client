@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Container, Row, Col, Form, Spinner, Button, Card } from 'react-bootstrap'
+import { Container, Row, Col, Form, Spinner, Button, Card, ListGroup } from 'react-bootstrap'
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
@@ -8,7 +8,7 @@ export default function EditNoticeBoard({ match }) {
     const [notices, setNotices] = useState([])
     const [loading, setLoading] = useState(false)
     const [changeViewLoading, setChangeViewLoading] = useState(false)
-    const [toggleLoading, setToggleLoading] = useState(false)
+    // const [toggleLoading, setToggleLoading] = useState(false)
     const { handleSubmit, register, watch } = useForm({
         defaultValues: {
             displaytype: noticeboard?.displaytype,
@@ -53,18 +53,18 @@ export default function EditNoticeBoard({ match }) {
         }
         setChangeViewLoading(false)
     }
-    const toggleheadline = useCallback(async () => {
-        setToggleLoading(true)
-        try {
-            const { data } = await axios.post(`/admin/toggleheadline/${match.params.id}`)
-            if (data.success) {
-                getNoticeBoard()
-            }
-        } catch (error) {
-            console.log(error.message)
-        }
-        setToggleLoading(false)
-    }, [match.params.id, getNoticeBoard])
+    // const toggleheadline = useCallback(async () => {
+    //     setToggleLoading(true)
+    //     try {
+    //         const { data } = await axios.post(`/admin/toggleheadline/${match.params.id}`)
+    //         if (data.success) {
+    //             getNoticeBoard()
+    //         }
+    //     } catch (error) {
+    //         console.log(error.message)
+    //     }
+    //     setToggleLoading(false)
+    // }, [match.params.id, getNoticeBoard])
 
     useEffect(() => {
         getNoticeBoard()
@@ -72,7 +72,7 @@ export default function EditNoticeBoard({ match }) {
     return (
         <Container>
             <Row lg={1} md={1} sm={1} xl={1} xs={1} as={Form} onSubmit={handleSubmit(setBoard)}>
-                <Col>
+                <Col style={{ marginTop: "20px" }}>
                     {loading ?
                         <Spinner animation="border" /> :
                         <>
@@ -137,7 +137,7 @@ export default function EditNoticeBoard({ match }) {
                 </Col>}
                 <Button disabled={changeViewLoading} type="submit">{changeViewLoading ? <Spinner animation="border" /> : "Submit"}</Button>
             </Row>
-            <Row>
+            {/* <Row>
                 <Col>
                     <Form.Check
                         disabled={toggleLoading}
@@ -148,13 +148,15 @@ export default function EditNoticeBoard({ match }) {
                         onChange={toggleheadline}
                     />
                 </Col>
-            </Row>
+            </Row> */}
             <Row>
-                <Col as={Card}>
+                <Col>
                     <h1>Selected Notices</h1>
-                    {noticeboard?.selectednotices?.map((selectednotice, id) => (
-                        <p>{selectednotice.name}</p>
-                    ))}
+                    <ListGroup>
+                        {noticeboard?.selectednotices?.map((selectednotice, id) => (
+                            <ListGroup.Item key={id} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}><p>{selectednotice.name}</p><img style={{ height: "30px" }} src={selectednotice?.material.materialtype === "Image" ? selectednotice?.material.material : null} thumbnail /></ListGroup.Item>
+                        ))}
+                    </ListGroup>
                 </Col>
             </Row>
         </Container >
