@@ -22,12 +22,7 @@ export default function EditNoticeBoard({ match }) {
     const updateData = (formData) => {
         socket.emit('updatedata', formData)
     }
-    const { handleSubmit, register, watch } = useForm({
-        defaultValues: {
-            displaytype: noticeboard?.displaytype,
-            selectednotices: noticeboard?.selectednotices
-        }
-    })
+    const { handleSubmit, register, watch } = useForm()
 
     const getNoticeSets = useCallback(async () => {
         try {
@@ -107,13 +102,13 @@ export default function EditNoticeBoard({ match }) {
         socket.on('connect', () => {
             socket.emit('connected', { type: 'admin', id: user.id })
         })
-    }, [])
+    }, [user.id])
     return (
         <Container>
             <Row lg={1} md={1} sm={1} xl={1} xs={1}>
                 {!addNewNoticeSet &&
                     <Col style={{ marginTop: "20px" }}>
-                        <Button onClick={() => setAddNewNoticeSet(nn => !nn)}>Add Notice</Button>
+                        <Button onClick={() => setAddNewNoticeSet(nn => !nn)}>Add a new Notice Set</Button>
                     </Col>
                 }
                 {addNewNoticeSet ? (
@@ -179,12 +174,15 @@ export default function EditNoticeBoard({ match }) {
                 ) : (
                         <Col style={{ marginTop: "20px" }}>
                             {!editNoticeSet ? (
-                                <InputGroup>
-                                    <FormControl disabled={true} defaultValue={noticeboard?.notice?.name} />
-                                    <InputGroup.Append>
-                                        <Button onClick={() => setEditNoticeSet(set => !set)}>Edit</Button>
-                                    </InputGroup.Append>
-                                </InputGroup>
+                                <>
+                                    <h2>Selected notice set</h2>
+                                    <InputGroup>
+                                        <FormControl disabled={true} defaultValue={noticeboard?.notice?.name} />
+                                        <InputGroup.Append>
+                                            <Button onClick={() => setEditNoticeSet(set => !set)}>Edit</Button>
+                                        </InputGroup.Append>
+                                    </InputGroup>
+                                </>
                             ) : (
                                     <Form onSubmit={handleSubmit(setNoticeSetForBoard)}>
                                         <Form.Group>
