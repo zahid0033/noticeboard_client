@@ -15,7 +15,7 @@ export default function NavBar() {
                     {isAuthenticated &&
                         (
                             <>
-                                <Nav.Link as={Link} to="/noticeboards">Notices</Nav.Link>
+                                <Nav.Link as={Link} to="/notices">Notices</Nav.Link>
                                 <Nav.Link as={Link} to="/materials">Materials</Nav.Link>
                                 <Nav.Link as={Button} onClick={() => dispatch(logoutUser())}>Logout</Nav.Link>
                             </>

@@ -36,8 +36,7 @@ export default function NoticeBoards() {
                             <Col style={{ padding: 0, margin: "20px" }} key={id} as={Card} className="noticeboardcard">
                                 <Card.Header>{noticeboard?.name}</Card.Header>
                                 <Card.Body>
-                                    <Card.Title>Organization id: {noticeboard?.organization}</Card.Title>
-                                    <Card.Text>Last update id: {noticeboard?.lastUpdateid}</Card.Text>
+                                    <Card.Title>Organization: {noticeboard?.organization?.name}</Card.Title>
                                     <Button value={noticeboard?._id} onClick={e => history.push(`/noticeboard/${e.target.value}`)}>Edit</Button>
                                 </Card.Body>
                             </Col>

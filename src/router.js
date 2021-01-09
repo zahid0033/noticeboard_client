@@ -19,7 +19,7 @@ function RouteBody() {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <AdminRoute path="/materials" component={Material} />
-            <AdminRoute path="/noticeboards" component={Noticeboard} />
+            <AdminRoute path="/notices" component={Noticeboard} />
             <AdminRoute path="/noticeboard/:id" component={EditNoticeBoard} />
             <Route exact path="/program" component={Program} />
             <Route exact path="/program/edit/:programId" component={ProgramEdit} />

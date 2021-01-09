@@ -7,7 +7,7 @@ import Notices from '../components/DashComponents/Notices';
 const { REACT_APP_NOT_AXIOS_BASE_URL } = process.env;
 
 export default function Noticeboard() {
-    const [addNewNotice, setAddNewNotice] = useState()
+    const [addNewNotice, setAddNewNotice] = useState(false)
     const { handleSubmit, register } = useForm()
     const [materialQuery, setMaterialQuery] = useState()
     const [materials, setMaterials] = useState()
