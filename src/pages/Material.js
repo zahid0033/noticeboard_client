@@ -55,6 +55,7 @@ export default function Material() {
 
       let headers = new Headers();
       headers.append("Accept", "Application/JSON");
+      headers.append("Access-Control-Allow-Origin", "*");
 
       let formdata = new FormData();
 
