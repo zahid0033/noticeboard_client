@@ -18,7 +18,7 @@ const socket = io(REACT_APP_NOT_AXIOS_BASE_URL);
 
 export default function EditNoticeBoard({ match }) {
   const [noticeboard, setNoticeboard] = useState({});
-  //   console.log(noticeboard);
+  console.log(noticeboard);
   const [addNewNoticeSet, setAddNewNoticeSet] = useState(false);
   const [noticeSets, setNoticeSets] = useState([]);
   const [noticeSetQuery, setNoticeSetQuery] = useState("");
@@ -32,9 +32,11 @@ export default function EditNoticeBoard({ match }) {
   const updateData = (formData) => {
     socket.emit("updatedata", formData);
   };
+  let p = noticeboard?.isSplit;
   const { handleSubmit, register, watch } = useForm({
     defaultValues: {
-      isSplit: noticeboard?.isSplit,
+      isSplit: p,
+      // splitNoticeSets: noticeboard.splitNoticeSets,
     },
   });
 
@@ -65,7 +67,8 @@ export default function EditNoticeBoard({ match }) {
     }
     setMaterialloading(false);
   };
-
+  // console.log(noticeSets);
+  // console.log(noticeboad);
   const getNoticeBoard = useCallback(async () => {
     //setLoading(true)
     try {
@@ -258,7 +261,7 @@ export default function EditNoticeBoard({ match }) {
                       ref={register}
                     />
                   </Form.Group>
-                  {noticeboard?.isSplit || watch("isSplit") ? (
+                  {watch("isSplit") ? (
                     <>
                       <Form.Label>
                         Select Notice Sets for this noticeboard
@@ -270,7 +273,7 @@ export default function EditNoticeBoard({ match }) {
                           type="checkbox"
                           id="splitNoticeSets"
                           defaultChecked={noticeboard?.splitNoticeSets?.some(
-                            (nts) => nts === noticeSet._id
+                            (nts) => nts._id === noticeSet._id
                           )}
                           name="splitNoticeSets"
                           label={noticeSet.name}
@@ -278,8 +281,6 @@ export default function EditNoticeBoard({ match }) {
                           ref={register}
                         />
                       ))}
-                      <pre>{JSON.stringify(noticeSets[0])}</pre>
-                      <pre>{JSON.stringify(noticeboard?.splitNoticeSets)}</pre>
                       <Button
                         type="button"
                         variant="secondary"

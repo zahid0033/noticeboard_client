@@ -151,7 +151,7 @@ export default function EditNoticeSet({ match }) {
                           type="checkbox"
                           id="materials"
                           defaultChecked={noticeSet?.materials?.some(
-                            (ns) => ns._id === material._id
+                            (ns) => ns === material._id
                           )}
                           name="materials"
                           label={material.name}
