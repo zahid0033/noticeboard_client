@@ -13,7 +13,7 @@ export default function NavBar() {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="m-l-auto">
+        <Nav className="ml-auto">
           {isAuthenticated && (
             <>
               <Nav.Link as={Link} to="/notices">

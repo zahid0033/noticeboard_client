@@ -18,7 +18,7 @@ const socket = io(REACT_APP_NOT_AXIOS_BASE_URL);
 
 export default function EditNoticeBoard({ match }) {
   const [noticeboard, setNoticeboard] = useState({});
-  console.log(noticeboard);
+  // console.log(noticeboard);
   const [addNewNoticeSet, setAddNewNoticeSet] = useState(false);
   const [noticeSets, setNoticeSets] = useState([]);
   const [noticeSetQuery, setNoticeSetQuery] = useState("");
@@ -32,13 +32,13 @@ export default function EditNoticeBoard({ match }) {
   const updateData = (formData) => {
     socket.emit("updatedata", formData);
   };
-  let p = noticeboard?.isSplit;
-  const { handleSubmit, register, watch } = useForm({
+  const { handleSubmit, register, watch, reset } = useForm({
     defaultValues: {
-      isSplit: p,
+      isSplit: noticeboard?.isSplit,
       // splitNoticeSets: noticeboard.splitNoticeSets,
     },
   });
+  const { isSplit } = watch();
 
   const getNoticeSets = useCallback(async () => {
     try {
@@ -79,12 +79,13 @@ export default function EditNoticeBoard({ match }) {
         setNoticeboard(data.noticeboard);
         getNoticeSets();
         getMaterials();
+        reset({ isSplit: data.noticeboard?.isSplit });
       }
     } catch (error) {
       console.log(error.message);
     }
     //setLoading(false)
-  }, [match.params.id, getNoticeSets]);
+  }, [match.params.id, reset, getNoticeSets]);
 
   const addNoticeSet = async (values) => {
     try {
@@ -261,7 +262,7 @@ export default function EditNoticeBoard({ match }) {
                       ref={register}
                     />
                   </Form.Group>
-                  {watch("isSplit") ? (
+                  {isSplit ? (
                     <>
                       <Form.Label>
                         Select Notice Sets for this noticeboard

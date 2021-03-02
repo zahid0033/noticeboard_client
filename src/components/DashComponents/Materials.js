@@ -24,6 +24,15 @@ export default function Materials({ setAddMaterial }) {
     setLoading(false);
   };
 
+  const deleteMatrial = (e) => {
+    e.preventDefault();
+    try {
+      console.log(e.target.value);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     getMaterials();
   }, []);
@@ -48,6 +57,7 @@ export default function Materials({ setAddMaterial }) {
                     <th>Name</th>
                     <th>Material</th>
                     <th>Type</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -90,7 +100,15 @@ export default function Materials({ setAddMaterial }) {
                         )}
                       </td>
                       <td>{material.materialtype}</td>
-                      {/* <MaterialModal id={id} type={material.materialtype} material={material.material} /> */}
+                      <td>
+                        <button
+                          value={material._id}
+                          onClick={deleteMatrial}
+                          className="btn btn-small buttonoff"
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
